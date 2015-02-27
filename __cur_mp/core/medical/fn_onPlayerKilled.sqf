@@ -1,7 +1,7 @@
 /*
 	File: fn_onPlayerKilled.sqf
 	Author: Bryan "Tonic" Boardwine
-	
+
 	Description:
 	When the player dies collect various information about that player
 	and pull up the death dialog / camera functionality.
@@ -40,16 +40,17 @@ _unit spawn
 	_RespawnBtn = ((findDisplay 7300) displayCtrl 7302);
 	_Timer = ((findDisplay 7300) displayCtrl 7301);
 	
+
 //	_maxTime = time + (life_respawn_timer * 60);
 	_maxTime = time + (life_respawn_timer);
 	_RespawnBtn ctrlEnable false;
-	waitUntil {_Timer ctrlSetText format[localize "STR_Medic_Respawn",[(_maxTime - time),"MM:SS.MS"] call BIS_fnc_secondsToString]; 
+	waitUntil {_Timer ctrlSetText format[localize "STR_Medic_Respawn",[(_maxTime - time),"MM:SS.MS"] call BIS_fnc_secondsToString];
 //	round(_maxTime - time) <= 0 OR isNull _this};
 	round(_maxTime - time) <= 0 || isNull _this || Life_request_timer};
 
 	if (Life_request_timer) then {
 		_maxTime = time + (life_respawn_timer * 20);
-		waitUntil {_Timer ctrlSetText format[localize "STR_Medic_Respawn",[(_maxTime - time),"MM:SS.MS"] call BIS_fnc_secondsToString]; 
+		waitUntil {_Timer ctrlSetText format[localize "STR_Medic_Respawn",[(_maxTime - time),"MM:SS.MS"] call BIS_fnc_secondsToString];
 		round(_maxTime - time) <= 0 || isNull _this};
 	};
 	Life_request_timer = false; //resets increased respawn timer
@@ -80,7 +81,7 @@ if(!isNull _killer && {_killer != _unit} && {side _killer != west} && {alive _ki
 		};
 	} else {
 		[[getPlayerUID _killer,_killer getVariable["realname",name _killer],"187"],"life_fnc_wantedAdd",false,false] spawn life_fnc_MP;
-		
+
 		if(!local _killer) then {
 			[[3],"life_fnc_removeLicenses",_killer,FALSE] spawn life_fnc_MP;
 		};
@@ -97,7 +98,6 @@ if(side _killer == west && playerSide != west) then {
 		[format[localize "STR_Cop_RobberDead",[life_hypcash] call life_fnc_numberText],"life_fnc_broadcast",true,false] spawn life_fnc_MP;
 		life_hypcash = 0;
 	};
-};
 
 if(!isNull _killer && {_killer != _unit}) then {
 	life_removeWanted = true;
