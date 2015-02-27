@@ -39,6 +39,7 @@ _unit spawn
 	disableSerialization;
 	_RespawnBtn = ((findDisplay 7300) displayCtrl 7302);
 	_Timer = ((findDisplay 7300) displayCtrl 7301);
+	
 
 //	_maxTime = time + (life_respawn_timer * 60);
 	_maxTime = time + (life_respawn_timer);
